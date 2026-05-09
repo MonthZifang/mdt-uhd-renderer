@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.mdt'
+version = 'v1'
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+        resources.srcDirs = ['src/main/resources']
+    }
+}
+
+repositories {
+    mavenCentral()
+
+    ivy {
+        url 'https://github.com/'
+        patternLayout { artifact '/[organisation]/[module]/releases/download/[revision]/dependencies.jar' }
+        metadataSources { artifact() }
+    }
+
+    ivy {
+        url 'https://github.com/'
+        patternLayout { artifact '/[organisation]/[module]/releases/download/master/[revision].jar' }
+        metadataSources { artifact() }
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 8
+}
+
+configurations {
+    bundled
+    implementation.extendsFrom(bundled)
+}
+
+ext {
+    mindustryVersion = 'v157'
+}
+
+dependencies {
+    compileOnly "Anuken:Mindustry:$mindustryVersion"
+    bundled 'com.google.code.gson:gson:2.10.1'
+}
+
+jar {
+    archiveFileName = "${rootProject.name}.jar"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from(rootDir) {
+        include 'plugin.json'
+    }
+
+    from {
+        configurations.bundled.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+tasks.register('syncDist', Copy) {
+    dependsOn jar
+    from(layout.buildDirectory.file("libs/${rootProject.name}.jar"))
+    into(layout.projectDirectory.dir("dist"))
+}
+
+jar.finalizedBy(tasks.named('syncDist'))

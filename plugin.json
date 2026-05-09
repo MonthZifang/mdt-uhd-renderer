@@ -1,0 +1,7 @@
+{
+  "name": "mdt-uhd-renderer",
+  "author": "monthzifang",
+  "main": "com.mdt.renderer.UhdRendererPlugin",
+  "description": "Provides a reusable UHD-style popup and map label renderer for Mindustry plugins, with optional external command access.",
+  "version": "V1.0.0 - 157X"
+}

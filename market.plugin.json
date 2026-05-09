@@ -1,0 +1,22 @@
+{
+  "metadataVersion": 1,
+  "name": "mdt-uhd-renderer",
+  "displayName": "MDT UHD Renderer",
+  "displayNameZh": "MDT UHD渲染器",
+  "author": "monthzifang",
+  "description": "Provides a reusable UHD-style popup and map label renderer for MDT plugins, with internal API access and optional server-side command exposure.",
+  "descriptionZh": "为 MDT 插件提供可复用的 UHD 风格弹窗与地图标签渲染能力，支持内部 API 调用，并可按配置开放服务端命令。",
+  "version": "v1",
+  "requiredMarketVersion": "v1",
+  "channel": "native",
+  "targets": [
+    "original"
+  ],
+  "downloadUrls": [
+    "https://raw.githubusercontent.com/MonthZifang/mdt-uhd-renderer/main/dist/mdt-uhd-renderer.jar",
+    "https://raw.githubusercontent.com/MonthZifang/mdt-uhd-renderer/main/plugin.json"
+  ],
+  "dependencies": [],
+  "repositoryUrl": "https://github.com/MonthZifang/mdt-uhd-renderer",
+  "entry": "com.mdt.renderer.UhdRendererPlugin"
+}
